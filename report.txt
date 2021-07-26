@@ -1,0 +1,24 @@
+---REPORT--
+Superpy Assignment
+Jennifer Oerlemans-Bakx
+July 2021
+
+NOTE TO TEACHER:
+- Function advance_time in advance_time.py only added to fit the requirement in the assignment, not used in my code
+- Writing result of turnover function from turnover.py to .txt file only there to fulfill requirement, no practical use
+
+Technical points:
+
+1. I thought it was important to add functionality to the sell function to make it impossible to store a product as sold (i.e. to sell it) if it's not in the inventory or not available in sufficient amount.
+   To solve this I added the helper function check_inventory(), the result of this helper (a list of inventory listings) is stored to a variable called inventory.
+   The first problem (product not in inventory) I solved by defining a variable Found = False, looping over each item in inventory to see if product is in there and changing Found to True if so and executing the rest.
+   The second problem (cannot sell more of product than in inventory) I solved by adding a counter that counts the number of times an item in inventory contains the product and stores this number.
+   I could then compare the amount to be sold to the count in inventory, if the amount <= the count the sell function is executed. If not, an error message is displayed detailing the maximum number of this product that can be sold. 
+
+2. I decided that the inventory should only reflect those products fit to be sold, i.e. expired products are not in the inventory.
+   Therefore, each time the report inventory function get_inventory() is called, the helper function in it called get_expired() filters out the expired products from the result.
+   
+3. in the code of profit.py i used an early return to correctly execute the rather complicated nested if-else and for loops, it would not function properly without it so I'm glad I discovered it!
+
+4. the expired function writes all expired products in a given timeframe to a csv file, but obviously NOT the ones that were sold! I do this by comparing the bought_ids of expired products to the bought_ids of sold products and
+   if there is a match DO NOTHING and if there isn't a match (i.e. found = False), export the product as expired to the csv.
